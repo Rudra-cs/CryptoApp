@@ -61,7 +61,7 @@ public class Signup extends AppCompatActivity {
                     memailid.setError("Email required");
                     return;
                 }
-                if (TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(password)){
                     mpassword.setError("password required");
                     return;
                 }

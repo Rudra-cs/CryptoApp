@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg1"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".SplashScreen">
@@ -34,8 +33,6 @@
         android:textStyle="bold"
         android:text="The Future Is Here"
         android:textColor="@color/colorAccent"/>
-
-
 
 
 </LinearLayout>

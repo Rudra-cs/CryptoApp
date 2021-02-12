@@ -40,7 +40,6 @@ public class HomeActivity extends AppCompatActivity {
             username.setText(user.getDisplayName());
         }
 
-
     }
 
     public void onlogoutclicked(View view) {
