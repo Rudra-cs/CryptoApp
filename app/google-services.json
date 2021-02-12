@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1011478456440",
+    "project_id": "rs-crypto",
+    "storage_bucket": "rs-crypto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011478456440:android:c5d5de9e269ec3c464a58d",
+        "android_client_info": {
+          "package_name": "com.rudra.cryptoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011478456440-8avc5j838qmj6v5gr0v95c5d02jlie00.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rudra.cryptoapp",
+            "certificate_hash": "76ed9704987ec703c0b89ba9306681d367aab046"
+          }
+        },
+        {
+          "client_id": "1011478456440-aikliql2rgnj09n6ict3shtnpoqe8uo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoG0Ypq5O51xHo4ONR_Yz9vN1hSZ4bk-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011478456440-aikliql2rgnj09n6ict3shtnpoqe8uo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
