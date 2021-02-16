@@ -1,4 +1,4 @@
-package com.rudra.cryptoapp;
+package com.rudra.cryptoapp.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.rudra.cryptoapp.ui.HomeActivity;
+import com.rudra.cryptoapp.R;
 
 public class Login extends AppCompatActivity {
     private EditText mEtUserName;
@@ -92,7 +94,7 @@ public class Login extends AppCompatActivity {
 
     }
     public void onSignupClicked(View view) {
-        Intent intent=new Intent(Login.this,Signup.class);
+        Intent intent=new Intent(Login.this, Signup.class);
         startActivity(intent);
 
     }

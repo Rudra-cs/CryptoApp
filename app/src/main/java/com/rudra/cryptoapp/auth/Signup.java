@@ -1,4 +1,4 @@
-package com.rudra.cryptoapp;
+package com.rudra.cryptoapp.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.rudra.cryptoapp.ui.HomeActivity;
+import com.rudra.cryptoapp.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +39,7 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
         progressBar=findViewById(R.id.progressbar);
         fullname=findViewById(R.id.et_regfull_name);
         username=findViewById(R.id.et_reguser_name);
@@ -90,7 +93,7 @@ public class Signup extends AppCompatActivity {
                                     Log.d(TAG,"on successfull user created for"+userId);
                                 }
                             });
-                            startActivity(new Intent(Signup.this,HomeActivity.class));
+                            startActivity(new Intent(Signup.this, HomeActivity.class));
                         }else{
                             Toast.makeText(Signup.this,"error occured"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                         }
@@ -103,7 +106,7 @@ public class Signup extends AppCompatActivity {
     }
 
     public void onbackloginclicked(View view) {
-        Intent intent=new Intent(Signup.this,Login.class);
+        Intent intent=new Intent(Signup.this, Login.class);
         startActivity(intent);
     }
 }
