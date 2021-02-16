@@ -18,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
-    private EditText mEtUserName;
+
     private EditText mEtEmailAddress;
     private EditText mEtPassword;
     FirebaseAuth firebaseAuth;
@@ -31,8 +31,6 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         mEtEmailAddress = findViewById(R.id.et_email_address);
         mEtPassword = findViewById(R.id.et_password);
         progressBar=findViewById(R.id.progressbarlogin);
@@ -45,16 +43,11 @@ public class Login extends AppCompatActivity {
         if (isUserLoggedIn) {
             moveToHomeScreen();
         }
-    }
 
+    }
     public void onLoginClicked(View view) {
-        String username = mEtUserName.getText().toString();
         String email = mEtEmailAddress.getText().toString().trim();
         String password = mEtPassword.getText().toString().trim();
-        if (TextUtils.isEmpty(username)){
-            mEtUserName.setError("username required");
-            return;
-        }
         if (TextUtils.isEmpty(email)){
             mEtEmailAddress.setError("Email required");
             return;
@@ -68,6 +61,7 @@ public class Login extends AppCompatActivity {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
+
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(Login.this,new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -82,15 +76,15 @@ public class Login extends AppCompatActivity {
         });
         editor.putBoolean("ISLOGGEDIN", true);
         editor.apply();
-        
-
     }
+
 
     private void moveToHomeScreen() {
         startActivity(new Intent(Login.this, HomeActivity.class));
         finish();
 
     }
+
     public void onSignupClicked(View view) {
         Intent intent=new Intent(Login.this,Signup.class);
         startActivity(intent);
