@@ -20,7 +20,7 @@ import com.rudra.cryptoapp.ui.HomeActivity;
 import com.rudra.cryptoapp.R;
 
 public class Login extends AppCompatActivity {
-    private EditText mEtUserName;
+
     private EditText mEtEmailAddress;
     private EditText mEtPassword;
     FirebaseAuth firebaseAuth;
@@ -50,13 +50,10 @@ public class Login extends AppCompatActivity {
     }
 
     public void onLoginClicked(View view) {
-//        String username = mEtUserName.getText().toString();
+
         String email = mEtEmailAddress.getText().toString().trim();
         String password = mEtPassword.getText().toString().trim();
-//        if (TextUtils.isEmpty(username)){
-//            mEtUserName.setError("username required");
-//            return;
-//        }
+
         if (TextUtils.isEmpty(email)){
             mEtEmailAddress.setError("Email required");
             return;
