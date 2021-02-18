@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,8 +29,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rudra.cryptoapp.R;
+import com.rudra.cryptoapp.adapter.NewsAdapter;
 import com.rudra.cryptoapp.adapter.RecyclerAdapter;
 import com.rudra.cryptoapp.auth.Login;
+import com.rudra.cryptoapp.models.News;
 import com.rudra.cryptoapp.models.Trade;
 
 import java.util.ArrayList;
@@ -40,11 +43,15 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuthhome;
     private SharedPreferences prefManager;
     private SharedPreferences.Editor editor;
+    private DatabaseReference reference;
 
     private RecyclerView recTrade;
-    private DatabaseReference reference;
     private ArrayList<Trade> tradeList;
     private RecyclerAdapter recyclerAdapter;
+
+    private RecyclerView recNews;
+    private ArrayList<News> newsList;
+    private NewsAdapter recyclerAdapterNews;
 
     private DrawerLayout drawerLayout;
 
@@ -66,7 +73,6 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Orital");
         }
 
@@ -76,14 +82,51 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recTrade.setLayoutManager(layoutManager);
 
+        recNews = findViewById(R.id.rc_news);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recNews.setLayoutManager(linearLayoutManager);
+
         reference = FirebaseDatabase.getInstance().getReference();
         tradeList = new ArrayList<>();
+        newsList = new ArrayList<>();
 
         //Clear Arraylist
         clearAll();
 
+        //Getting News
+        getNewsFromFirebase();
+
         //Getting Data From Firebase
         getDataFromFirebase();
+    }
+
+    private void getNewsFromFirebase() {
+        Query query = reference.child("News");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                clearAll();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    News news = new News();
+
+                    news.setTitle(snapshot.child("title").getValue().toString());
+                    news.setImageUrl(snapshot.child("image url").getValue().toString());
+
+                    newsList.add(news);
+
+                }
+                recyclerAdapterNews = new NewsAdapter(getApplicationContext(),newsList);
+                recNews.setAdapter(recyclerAdapterNews);
+                recyclerAdapterNews.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void getDataFromFirebase() {
@@ -128,28 +171,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-//    public void onlogoutclicked(View view) {
-//        new AlertDialog.Builder(HomeActivity.this).setTitle("Alert")
-//                .setMessage("Are you sure you want to Logout")
-//                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        editor.putBoolean("ISLOGGEDIN", false);
-//
-//                        editor.apply();
-//                        FirebaseAuth.getInstance().signOut();
-//
-//                        startActivity(new Intent(HomeActivity.this, Login.class));
-//                        finish();
-//                    }
-//                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//            }
-//        }).show();
-//
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
