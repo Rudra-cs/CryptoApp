@@ -13,12 +13,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.rudra.cryptoapp.R;
 import com.rudra.cryptoapp.adapter.NewsAdapter;
 import com.rudra.cryptoapp.adapter.RecyclerAdapter;
@@ -54,6 +59,8 @@ public class HomeActivity extends AppCompatActivity {
     private NewsAdapter recyclerAdapterNews;
 
     private DrawerLayout drawerLayout;
+    public static final String TAG = "MyFirebaseMsgService";
+    private String tokenstring;
 
 
     @Override
@@ -61,7 +68,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Intent intent=new Intent(HomeActivity.this,MyFirebaseMessagingService.class);
+        startService(intent);
+
 
         //Authentication
         prefManager = getApplicationContext().getSharedPreferences("LOGIN", MODE_PRIVATE);
@@ -73,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Orital");
+            getSupportActionBar().setTitle("RS_CRYPTO");
         }
 
         //Firebase database
@@ -99,6 +108,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //Getting Data From Firebase
         getDataFromFirebase();
+
+
+
     }
 
     private void getNewsFromFirebase() {
@@ -207,6 +219,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
 
 }
